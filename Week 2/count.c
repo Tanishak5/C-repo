@@ -7,33 +7,44 @@
 #include <assert.h>
 
 int count(char string1[], char string2[], int length1, int length2){
-    bool match = true;
-    int count = 0;
+    int matches = 0;
     for(int i = 0; i < length1; i++){
-        for(int j = 0; j < length2; j++){
-            if(string2[j] != string1[i]){
-                match = false;
+        if(string1[i] == string2[0]){
+            for(int j = 0; j < length2; j++){
+                if(string2[j] == string1[i + j] && i <= (length1 - length2))matches++;
             }
         }
-        if(match == true)count++;
     }
+    int count = matches / length2;
     return count;
+
+}
+
+void test(){
+    assert(count("hahaha", "aha", 6, 3) == 2);
+    assert(count("aaaaa", "a", 5, 1) == 5);
+    assert(count("hello", "d", 5, 1) == 0);
+    assert(count("aaaaa", "aa", 5, 2) == 4);
+    printf("All tests pass");
 
 }
 
 
 
 int main(int n, char *args[n]){
-    setbuff(stdout, NULL);
+    setbuf(stdout, NULL);
     if(n==0){
-        printf("ERROR");
+        fprintf(stderr, "Usage:   ./count   or   ./count w i\n");
+        fprintf(stderr, "where w is an word and i is a inner word to search for.\n");
         return 1;
-    } else if(n == 1){// Do whatever
+    } else if(n == 1){
+        test();
     }else{
-        int length1 = strlen(args[2]);
-        int length2 = strlen(args[3]);
-        count(args[1], args[2], length1, length2);
-        return 0;
+        int length1 = strlen(args[1]);
+        int length2 = strlen(args[2]) ;
+        int counter = count(args[1], args[2], length1, length2);
+        printf("Counter is %d \n", counter);
     }
+    return 0;
 
 }
