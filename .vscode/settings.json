@@ -1,6 +1,11 @@
 {
     "files.associations": {
         "assert.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "stdio.h": "c",
+        "list": "c",
+        "__locale": "c",
+        "string": "c",
+        "string_view": "c"
     }
 }
